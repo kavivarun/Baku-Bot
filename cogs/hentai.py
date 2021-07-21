@@ -14,12 +14,6 @@ class Hentai(commands.Cog):
   #initializing discord client into class instance
   def __init__(self,client):
     self.client = client
-  
-  #listener for when bot is ready
-  @commands.Cog.listener()
-  async def on_ready(self):
-    await self.client.change_presence(status=discord.Status.online,activity= discord.Game("The Sauce Finder"))
-    print('logged in as {0.user}'.format(self.client))
 
   #command for getting details of a hentai and displaying it
   @commands.command()
