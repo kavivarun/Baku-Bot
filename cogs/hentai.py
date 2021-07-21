@@ -42,7 +42,20 @@ class Hentai(commands.Cog):
       embed.add_field(name="**Tags**",value="`"+"` `".join (Doujin.tags)+'`',inline=False)
       embed.set_footer(text='Artists: {0}'.format(", ".join(Doujin.artists) if len(Doujin.artists)>0 else "Unknown"))
       embed.set_thumbnail(url=Doujin.images[0])
-      await ctx.send(embed=embed)
+      message = await ctx.send(embed=embed)
+      await message.add_reaction(emoji='📖')
+      await message.add_reaction(emoji='❌')
+      try:
+          reaction, user = await self.client.wait_for('reaction_add',check=lambda reaction, user: (reaction.emoji == '📖' or reaction.emoji=='❌') and user == ctx.author and reaction.message.id == message.id,timeout= 30.0)
+      except:
+          pass
+      else:
+        if reaction.emoji=="❌":
+          await message.delete()
+          await ctx.message.delete()
+        else:
+          await message.delete()
+          await ctx.invoke(self.client.get_command('read'),hid=str(Doujin.id))
 
   #command for displaying hentai in a readable format
   @commands.command()
@@ -64,27 +77,33 @@ class Hentai(commands.Cog):
         Doujin = nhentai.get_doujin(id = hsearch.doujins[random.randint(0,(size-1)//total)].id)
       except:
         await ctx.send("Enter a valid id or search string else leave search field empty ")
+      
     
     if Doujin:
       embed,i= embedDoujin(Doujin,i)
       message = await ctx.send(embed=embed)
       await message.add_reaction(emoji='👈')
       await message.add_reaction(emoji='👉')
+      await message.add_reaction(emoji='❌')
       await asyncio.sleep(1)
       loop = True
       while loop:
         try:
-          reaction, user = await self.client.wait_for('reaction_add',check=lambda reaction, user: (reaction.emoji == '👉' or reaction.emoji=='👈') and user == ctx.author and reaction.message.id == message.id,timeout= 30.0)
+          reaction, user = await self.client.wait_for('reaction_add',check=lambda reaction, user: (reaction.emoji == '👉' or reaction.emoji=='👈' or reaction.emoji=='❌') and user == ctx.author and reaction.message.id == message.id,timeout= 30.0)
         except:
           loop= False
         else:
-          if reaction.emoji =="👉":
-            embed,i=embedDoujin(Doujin,i+1)
+          if reaction.emoji=="❌":
+            await message.delete()
+            await ctx.message.delete()
           else:
-            embed,i=embedDoujin(Doujin,i-1)
-          await message.edit(embed=embed)
-          await message.remove_reaction("👉",ctx.author)
-          await message.remove_reaction("👈",ctx.author)
+            if reaction.emoji =="👉":
+              embed,i=embedDoujin(Doujin,i+1)
+            else:
+              embed,i=embedDoujin(Doujin,i-1)
+            await message.edit(embed=embed)
+            await message.remove_reaction("👉",ctx.author)
+            await message.remove_reaction("👈",ctx.author)
 
 #Function for embedding the returned details from nhentai api for read command
 def embedDoujin(Doujin,i):
