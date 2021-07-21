@@ -223,6 +223,26 @@ soupsieve = "*"
 tabulate = ">=0.7.5"
 
 [[package]]
+name = "nose"
+version = "1.3.7"
+description = "nose extends unittest to make testing easier"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "random-word"
+version = "1.0.7"
+description = "This is a simple python package to generate random english words"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+nose = "*"
+requests = "*"
+
+[[package]]
 name = "requests"
 version = "2.26.0"
 description = "Python HTTP for Humans."
@@ -306,7 +326,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "7badc30bfbdaeb5d64b553cef53ced359c4aa8385c637f7be8519f123e3e1f78"
+content-hash = "2b108462299158b4b56c28dbaedd3c3e45e1dfbef94572a7a5385becfa4a7ca6"
 
 [metadata.files]
 aiohttp = [
@@ -489,6 +509,15 @@ multidict = [
 ]
 nhentai = [
     {file = "nhentai-0.4.16.tar.gz", hash = "sha256:da5ceb42a531de53ccf8e0143bf4b04fe7c0b86ee45a65274c008d5223fb7753"},
+]
+nose = [
+    {file = "nose-1.3.7-py2-none-any.whl", hash = "sha256:dadcddc0aefbf99eea214e0f1232b94f2fa9bd98fa8353711dacb112bfcbbb2a"},
+    {file = "nose-1.3.7-py3-none-any.whl", hash = "sha256:9ff7c6cc443f8c51994b34a667bbcf45afd6d945be7477b52e97516fd17c53ac"},
+    {file = "nose-1.3.7.tar.gz", hash = "sha256:f1bffef9cbc82628f6e7d7b40d7e255aefaa1adb6a1b1d26c69a8b79e6208a98"},
+]
+random-word = [
+    {file = "Random Word-1.0.7.tar.gz", hash = "sha256:6656a809abafb394ea5067c3e3d2faf8aa6ef61d5cb42987f0baf5e8d4d54141"},
+    {file = "Random_Word-1.0.7-py3-none-any.whl", hash = "sha256:a568980218a6520a2f5ef7d4a79a12579989cda7244f48b1d915ebc19a396047"},
 ]
 requests = [
     {file = "requests-2.26.0-py2.py3-none-any.whl", hash = "sha256:6c1246513ecd5ecd4528a0906f910e8f0f9c6b8ec72030dc9fd154dc1a6efd24"},

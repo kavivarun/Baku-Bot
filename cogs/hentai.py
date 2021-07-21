@@ -20,6 +20,8 @@ class Hentai(commands.Cog):
   async def sauce(self,ctx,*,hid=""):
     Doujin = 0
     i=0
+
+    #searching and quereying Doujins based on id or search term
     if hid == "":
       Doujin = nhentai.get_random()
     elif hid =="popular":
@@ -35,7 +37,7 @@ class Hentai(commands.Cog):
         Doujin = nhentai.get_doujin(id = hsearch.doujins[random.randint(0,(size-1)//total)].id)
       except:
         await ctx.send("Enter a valid id or search string else leave search field empty ")
-
+    #Displaying embed if Doujin exists
     if Doujin:
       embed=discord.Embed(title=Doujin.title,url='https://nhentai.net/g/{0}/'.format(Doujin.id),description=str(Doujin.total_pages)+ " Pages",color=discord.Color.red())
       embed.add_field(name="**Id**\n",value=Doujin.id+"\n",inline=True)
@@ -45,6 +47,8 @@ class Hentai(commands.Cog):
       message = await ctx.send(embed=embed)
       await message.add_reaction(emoji='📖')
       await message.add_reaction(emoji='❌')
+      
+      #Waiting for user react input (Timeout in 30 seconds)
       try:
           reaction, user = await self.client.wait_for('reaction_add',check=lambda reaction, user: (reaction.emoji == '📖' or reaction.emoji=='❌') and user == ctx.author and reaction.message.id == message.id,timeout= 30.0)
       except:
@@ -62,6 +66,8 @@ class Hentai(commands.Cog):
   async def read(self,ctx,*,hid=""):
     Doujin = 0
     i=0
+    
+    #searching and quereying Doujins based on id or search term
     if hid == "":
       Doujin = nhentai.get_random()
     elif hid =="popular":
@@ -78,7 +84,7 @@ class Hentai(commands.Cog):
       except:
         await ctx.send("Enter a valid id or search string else leave search field empty ")
       
-    
+    #Displays embed and reaction if doujin found
     if Doujin:
       embed,i= embedDoujin(Doujin,i)
       message = await ctx.send(embed=embed)
@@ -87,6 +93,8 @@ class Hentai(commands.Cog):
       await message.add_reaction(emoji='❌')
       await asyncio.sleep(1)
       loop = True
+
+      #Waiting for user react input (Timeout in 30 seconds) Loops if reaction confirmed
       while loop:
         try:
           reaction, user = await self.client.wait_for('reaction_add',check=lambda reaction, user: (reaction.emoji == '👉' or reaction.emoji=='👈' or reaction.emoji=='❌') and user == ctx.author and reaction.message.id == message.id,timeout= 30.0)
