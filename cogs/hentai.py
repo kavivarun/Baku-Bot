@@ -5,6 +5,7 @@ import random
 from NHentai.nhentai import NHentai
 import asyncio
 
+#Loading NHentai-API
 nhentai = NHentai()
 
 #class for all commands related to hentai
@@ -14,11 +15,13 @@ class Hentai(commands.Cog):
   def __init__(self,client):
     self.client = client
   
+  #listener for when bot is ready
   @commands.Cog.listener()
   async def on_ready(self):
     await self.client.change_presence(status=discord.Status.online,activity= discord.Game("The Sauce Finder"))
     print('logged in as {0.user}'.format(self.client))
 
+  #command for getting details of a hentai and displaying it
   @commands.command()
   async def sauce(self,ctx,*,hid=""):
     Doujin = 0
@@ -47,6 +50,7 @@ class Hentai(commands.Cog):
       embed.set_thumbnail(url=Doujin.images[0])
       await ctx.send(embed=embed)
 
+  #command for displaying hentai in a readable format
   @commands.command()
   async def read(self,ctx,*,hid=""):
     Doujin = 0
@@ -88,6 +92,7 @@ class Hentai(commands.Cog):
           await message.remove_reaction("👉",ctx.author)
           await message.remove_reaction("👈",ctx.author)
 
+#Function for embedding the returned details from nhentai api for read command
 def embedDoujin(Doujin,i):
     i=i%Doujin.total_pages
     embed=discord.Embed(title=Doujin.title,url='https://nhentai.net/g/{0}/'.format(Doujin.id),color=discord.Color.red())
@@ -96,6 +101,6 @@ def embedDoujin(Doujin,i):
     return embed,i
 
 
-
+#setting up all the cogs(functions) 
 def setup(client):
   client.add_cog(Hentai(client))
