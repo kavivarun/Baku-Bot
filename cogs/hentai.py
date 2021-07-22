@@ -11,13 +11,12 @@ except ImportError:
   subprocess.check_call([sys.executable, "-m", "pip", "install", "NHentai-API"])
   from NHentai.nhentai import NHentai
   
-
-
 #Loading NHentai-API
 nhentai = NHentai()
 
 #class for all commands related to hentai
 class Hentai(commands.Cog):
+
 
   #initializing discord client into class instance
   def __init__(self,client):
@@ -28,7 +27,7 @@ class Hentai(commands.Cog):
   async def sauce(self,ctx,*,hid=""):
     Doujin = 0
     i=0
-
+    print(test)
     #searching and quereying Doujins based on id or search term
     if hid == "":
       Doujin = nhentai.get_random()
@@ -45,6 +44,7 @@ class Hentai(commands.Cog):
         Doujin = nhentai.get_doujin(id = hsearch.doujins[random.randint(0,(size-1)//total)].id)
       except:
         await ctx.send("Enter a valid id or search string else leave search field empty ")
+
     #Displaying embed if Doujin exists
     if Doujin:
       embed=discord.Embed(title=Doujin.title,url='https://nhentai.net/g/{0}/'.format(Doujin.id),description=str(Doujin.total_pages)+ " Pages",color=discord.Color.red())
