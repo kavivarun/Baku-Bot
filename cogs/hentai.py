@@ -126,7 +126,50 @@ class Hentai(commands.Cog):
               await message.remove_reaction("👈",ctx.author)
     else:
       await ctx.send("This command can only be used in a NSFW channel")
+  '''
+  @commands.command()
+  async def saucedm(self,ctx,*,hid=""):
+    Doujin = 0
+    i=0
+    #searching and quereying Doujins based on id or search term
+    if hid == "":
+      Doujin = nhentai.get_random()
+    elif hid =="popular":
+      popular = nhentai.get_popular_now()
+      Doujin =nhentai.get_doujin(id=popular.doujins[random.randint(0,popular.total_doujins-1)].id )
+    elif len(str(hid))==6 and str(hid).isdigit():
+      Doujin= nhentai.get_doujin(id=hid)
+    else:
+      try:
+        hsearch = nhentai.search(query=hid , sort='popular', page=1)
+        size = hsearch.total_results
+        total = hsearch.total_pages
+        Doujin = nhentai.get_doujin(id = hsearch.doujins[random.randint(0,(size-1)//total)].id)
+      except:
+        await ctx.send("Enter a valid id or search string else leave search field empty ")
 
+    #Displaying embed if Doujin exists
+    if Doujin:
+      embed=discord.Embed(title=Doujin.title,url='https://nhentai.net/g/{0}/'.format(Doujin.id),description=str(Doujin.total_pages)+ " Pages",color=discord.Color.red())
+      embed.add_field(name="**Id**\n",value=Doujin.id+"\n",inline=True)
+      embed.add_field(name="**Tags**",value="`"+"` `".join (Doujin.tags)+'`',inline=False)
+      embed.set_footer(text='Artists: {0}'.format(", ".join(Doujin.artists) if len(Doujin.artists)>0 else "Unknown"))
+      embed.set_thumbnail(url=Doujin.images[0])
+      message = await ctx.author.send(embed=embed)
+      await message.add_reaction(emoji='📖')
+      await message.add_reaction(emoji='❌')
+      try:
+        reaction = await self.client.wait_for('reaction_add',check=lambda reaction: (reaction.emoji == '📖' or reaction.emoji=='❌'),timeout= 30.0)
+      except:
+          pass
+      else:
+        if reaction.emoji=="❌":
+          print("hi")
+          await message.delete()
+        else:
+          await message.delete()
+          #await ctx.invoke(self.client.get_command('read'),hid=str(Doujin.id))  
+'''
 #Function for embedding the returned details from nhentai api for read command
 def embedDoujin(Doujin,i):
     i=i%Doujin.total_pages
