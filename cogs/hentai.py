@@ -126,7 +126,7 @@ class Hentai(commands.Cog):
               await message.remove_reaction("👈",ctx.author)
     else:
       await ctx.send("This command can only be used in a NSFW channel")
-  '''
+
   @commands.command()
   async def saucedm(self,ctx,*,hid=""):
     Doujin = 0
@@ -159,8 +159,9 @@ class Hentai(commands.Cog):
       await message.add_reaction(emoji='📖')
       await message.add_reaction(emoji='❌')
       try:
-        reaction = await self.client.wait_for('reaction_add',check=lambda reaction: (reaction.emoji == '📖' or reaction.emoji=='❌'),timeout= 30.0)
+        reaction = await self.client.wait_for('reaction_add',check=lambda reaction: (reaction.emoji == '📖' or reaction.emoji=='❌') reaction.message.id == message.id,timeout= 30.0)
       except:
+
           pass
       else:
         if reaction.emoji=="❌":
@@ -169,7 +170,7 @@ class Hentai(commands.Cog):
         else:
           await message.delete()
           #await ctx.invoke(self.client.get_command('read'),hid=str(Doujin.id))  
-'''
+
 #Function for embedding the returned details from nhentai api for read command
 def embedDoujin(Doujin,i):
     i=i%Doujin.total_pages

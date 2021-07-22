@@ -3,9 +3,11 @@ from discord.ext import commands
 import os
 from keep_alive import keep_alive
 
+#chaning intents for dm interaction
+intents = discord.Intents.default()
 #Loading client and setting Prefix for bot
 client = discord.Client()
-client = commands.Bot(command_prefix=["baku ","Baku ","BAKU "])
+client = commands.Bot(command_prefix=["baku ","Baku ","BAKU "],intents=intents)
 
 #Loading the differnt extensions in cogs directory
 for filename in os.listdir("./cogs"):
