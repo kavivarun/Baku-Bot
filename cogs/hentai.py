@@ -159,7 +159,7 @@ class Hentai(commands.Cog):
       await message.add_reaction(emoji='📖')
       await message.add_reaction(emoji='❌')
       try:
-        reaction = await self.client.wait_for('reaction_add',check=lambda reaction: (reaction.emoji == '📖' or reaction.emoji=='❌') reaction.message.id == message.id,timeout= 30.0)
+        reaction = await self.client.wait_for('reaction_add',check=lambda reaction: (reaction.emoji == '📖' or reaction.emoji=='❌') and reaction.message.id == message.id,timeout= 30.0)
       except:
 
           pass
