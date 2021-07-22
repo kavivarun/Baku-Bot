@@ -2,8 +2,16 @@ import discord
 from discord.ext import commands
 import os
 import random
-from NHentai.nhentai import NHentai
+import subprocess
+import sys
 import asyncio
+try:
+  from NHentai.nhentai import NHentai
+except ImportError:
+  subprocess.check_call([sys.executable, "-m", "pip", "install", "NHentai-API"])
+  from NHentai.nhentai import NHentai
+  
+
 
 #Loading NHentai-API
 nhentai = NHentai()
