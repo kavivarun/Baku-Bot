@@ -1,5 +1,8 @@
 import discord
 from discord.ext import commands
+import subprocess
+import sys
+
 try:
   from random_word import RandomWords
 except ImportError:
