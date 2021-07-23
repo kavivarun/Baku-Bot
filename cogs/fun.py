@@ -92,11 +92,11 @@ class Fun(commands.Cog):
       else:
         if str(user)[3:] == str(ctx.message.author.mention)[2:]:
           await ctx.send("Hey! ill give you a kiss instead "+ ctx.author.mention)
-          embed = set_embed("Things are getting spicy in here. 💋💋",discord.Color.red(), gifs['results'][random.randint(0,51)]['media'][0]['gif']['url'])
+          embed = set_embed("Things are getting spicy in here. 💋💋",discord.Color.red() , gifs['results'][random.randint(0,51)]['media'][0]['gif']['url'])
           await ctx.send(embed = embed)
         else:
           await ctx.send(ctx.message.author.mention + " kisses " + user)
-          embed = set_embed("Things are getting spicy in here. 💋💋",discord.Color.red(),gifs['results'][random.randint(0,31)]['media'][0]['gif']['url'])
+          embed = set_embed("Things are getting spicy in here. 💋💋",discord.Color.red() , gifs['results'][random.randint(0,31)]['media'][0]['gif']['url'])
           await ctx.send(embed = embed)
   
   @commands.command(aliases=["bites","BITE"])
