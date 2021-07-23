@@ -114,7 +114,25 @@ class Fun(commands.Cog):
           await ctx.send(embed = embed)
         else:
           await ctx.send(ctx.message.author.mention + " bites " + user)
-          embed = set_embed(str(ctx.message.author) + " is itching to taste flesh ",discord.Color.red(),gifs['results'][random.randint(0,31)]['media'][0]['gif']['url'])
+          embed = set_embed(str(ctx.message.author) + " is itching to taste flesh ",discord.Color.blue(),gifs['results'][random.randint(0,31)]['media'][0]['gif']['url'])
+          await ctx.send(embed = embed)
+ 
+  @commands.command(aliases=["licks","LICK"])
+  async def lick(self,ctx,*,user=""):
+    gifs = gif("anime lick",tenorapi,50)
+    if gifs == None:
+      await ctx.send("Error finding gifs at this time, Try again")
+    else:
+      if user =="":
+        await ctx.send("You need to mention someone")
+      else:
+        if str(user)[3:] == str(ctx.message.author.mention)[2:]:
+          await ctx.send("Did you taste salty? "+ ctx.author.mention)
+          embed = set_embed("You remind me of my cat",discord.Color.green(),gifs['results'][random.randint(0,51)]['media'][0]['gif']['url'])
+          await ctx.send(embed = embed)
+        else:
+          await ctx.send(ctx.message.author.mention + " licks " + user)
+          embed = set_embed("Weird fetish but okay",discord.Color.green(),gifs['results'][random.randint(0,31)]['media'][0]['gif']['url'])
           await ctx.send(embed = embed)
 
 def gif(search,api,limit=30):
