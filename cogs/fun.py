@@ -21,10 +21,10 @@ class Fun(commands.Cog):
       else:
         if str(user)[3:] == str(ctx.message.author.mention)[2:]:
           await ctx.send("Hey! ill give you a hug instead "+ ctx.author.mention)
-          embed = set_embed(gifs['results'][random.randint(0,51)]['media'][0]['gif']['url'])
+          embed = set_embed("Awww! are'nt you a cutie. ❤️ ❤️",discord.Color.purple(),gifs['results'][random.randint(0,51)]['media'][0]['gif']['url'])
           await ctx.send(embed = embed)
         else:
-          await ctx.send("Awww! are'nt you a cutie. ❤️ ❤️",discord.Color.purple(),ctx.message.author.mention + " hugs " + user)
+          await ctx.send(ctx.message.author.mention + " hugs " + user)
           embed = set_embed("Awww! are'nt you a cutie. ❤️ ❤️",discord.Color.purple(),gifs['results'][random.randint(0,31)]['media'][0]['gif']['url'])
           await ctx.send(embed = embed)
 
@@ -133,6 +133,24 @@ class Fun(commands.Cog):
         else:
           await ctx.send(ctx.message.author.mention + " licks " + user)
           embed = set_embed("Weird fetish but okay",discord.Color.green(),gifs['results'][random.randint(0,31)]['media'][0]['gif']['url'])
+          await ctx.send(embed = embed)
+  
+  @commands.command(aliases=["headpats","HEADPAT"])
+  async def headpat(self,ctx,*,user=""):
+    gifs = gif("anime headpat",tenorapi,50)
+    if gifs == None:
+      await ctx.send("Error finding gifs at this time, Try again")
+    else:
+      if user =="":
+        await ctx.send("You need to mention someone")
+      else:
+        if str(user)[3:] == str(ctx.message.author.mention)[2:]:
+          await ctx.send("Ill pat you instead"+ ctx.author.mention)
+          embed = set_embed("There There li'l cutie",discord.Color.blurple(),gifs['results'][random.randint(0,51)]['media'][0]['gif']['url'])
+          await ctx.send(embed = embed)
+        else:
+          await ctx.send(ctx.message.author.mention + " headpats " + user)
+          embed = set_embed("There There li'l cutie",discord.Color.blurple(),gifs['results'][random.randint(0,31)]['media'][0]['gif']['url'])
           await ctx.send(embed = embed)
 
 def gif(search,api,limit=30):
