@@ -4,7 +4,8 @@ import os
 from keep_alive import keep_alive
 
 #chaning intents for dm interaction
-intents = discord.Intents.default()
+intents = discord.Intents.all()
+intents.members = True
 #Loading client and setting Prefix for bot
 client = discord.Client()
 client = commands.Bot(command_prefix=["baku ","Baku ","BAKU "],intents=intents)

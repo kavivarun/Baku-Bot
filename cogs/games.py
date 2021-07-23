@@ -38,8 +38,12 @@ class Games(commands.Cog):
     else:
       currently_running.append(channel_id)
       #getting a random word from the API
-      word=r.get_random_word(hasDictionaryDef="true", minCorpusCount=5,minLength=6, maxLength=12)
-      word=word.lower()
+      try:
+        word=r.get_random_word(hasDictionaryDef="true", minCorpusCount=5,minLength=6, maxLength=12)
+        word=word.lower()
+      except:
+        await ctx.send("There was a problem with creating game, Try again.")
+        currently_running.remove(channel_id)
       
       #base variables
       loop = True
@@ -50,7 +54,7 @@ class Games(commands.Cog):
       img=["","https://i.imgur.com/hRzVg1N.png","https://i.imgur.com/cQmLMDO.png","https://i.imgur.com/sAeTvqP.png","https://i.imgur.com/yHGrZqc.png","https://i.imgur.com/UKiV6J9.png","https://i.imgur.com/w7QJQFH.png","https://i.imgur.com/KBMsCp9.png","https://media1.tenor.com/images/cb6eed2a7e9fb73f44d53f93ffe92c9c/tenor.gif"]
       
       #Loop for Game Logic
-      while loop:
+      while loop and word:
 
         #Initial embed
         if chance == 0:
