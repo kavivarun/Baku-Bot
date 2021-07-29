@@ -109,7 +109,7 @@ class Hentai(commands.Cog):
         #Waiting for user react input (Timeout in 30 seconds) Loops if reaction confirmed
         while loop:
           try:
-            reaction, user = await self.client.wait_for('reaction_add',check=lambda reaction, user: (reaction.emoji == '👉' or reaction.emoji=='👈' or reaction.emoji=='❌') and user == ctx.author and reaction.message.id == message.id,timeout= 30.0)
+            reaction, user = await self.client.wait_for('reaction_add',check=lambda reaction, user: (reaction.emoji == '👉' or reaction.emoji=='👈' or reaction.emoji=='❌') and user == ctx.author and reaction.message.id == message.id,timeout= 60.0)
           except:
             loop= False
           else:
