@@ -18,7 +18,7 @@ class Memes(commands.Cog):
     img=Image.open("./images/monke.jpg")
     title_text = text
     image_editable = ImageDraw.Draw(img)
-    font = ImageFont.truetype(font="./fonts/NotoEmoji-Regular.ttf",size=20)
+    font = ImageFont.truetype(font="./fonts/OpenSans-Regular.ttf",size=20)
     image_editable.text((350,20), title_text, (0, 0, 0),font=font)
     with BytesIO() as image_binary:
       img.save(image_binary, 'PNG')
