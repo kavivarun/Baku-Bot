@@ -2,7 +2,15 @@ import discord
 from discord.ext import commands
 import os
 from keep_alive import keep_alive
+import subprocess
+import sys
+try:
+  from discord_components import DiscordComponents
+except ImportError:
+  subprocess.check_call([sys.executable, "-m", "pip", "install", "discord_components"])
+  from discord_components import DiscordComponents
 
+  
 #chaning intents for dm interaction
 intents = discord.Intents.all()
 intents.members = True
@@ -18,6 +26,7 @@ for filename in os.listdir("./cogs"):
 #listener for when bot is ready
 @client.event
 async def on_ready():
+  DiscordComponents(client)
   await client.change_presence(status=discord.Status.online,activity= discord.Game("The Sauce Finder"))
   print('logged in as {0.user}'.format(client))
 

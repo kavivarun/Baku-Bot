@@ -8,7 +8,7 @@ import asyncio
 try:
   from NHentai.nhentai import NHentai
 except ImportError:
-  subprocess.check_call([sys.executable, "-m", "pip", "install", "NHentai-API"])
+  subprocess.check_call([sys.executable, "-m", "pip", "install", "NHentai-API==0.0.16"])
   from NHentai.nhentai import NHentai
   
 #Loading NHentai-API
@@ -184,3 +184,4 @@ def embedDoujin(Doujin,i):
 #setting up all the cogs(functions) 
 def setup(client):
   client.add_cog(Hentai(client))
+  

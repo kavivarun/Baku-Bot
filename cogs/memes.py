@@ -24,5 +24,7 @@ class Memes(commands.Cog):
       img.save(image_binary, 'PNG')
       image_binary.seek(0)
       await ctx.channel.send(file=discord.File(fp=image_binary, filename='image.png'))
+
+
 def setup(client):
   client.add_cog(Memes(client))
